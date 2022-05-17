@@ -4,9 +4,8 @@ import Registro from '../Registro/Registro';
 import Navigation from '../Navigation/Navigation';
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect
+    Routes, /* ya no es switch */
+    Route
 } from "react-router-dom";
 
 export const Main = () => {
@@ -14,15 +13,17 @@ export const Main = () => {
       <>
       <Router>
         <Navigation />
-        <Switch>
-            <Route path="/login">
-                <Login />
-            </Route>
-            <Route path="/registro">
-                <Registro />
-            </Route>
-            <Redirect from="/" to="login" />
-        </Switch>  
+        <Routes>
+        <Route path="/registro"
+                element={<Registro />}
+            />
+            <Route path="/login"
+               element={ <Login />}
+            />
+            <Route path="/"
+               element={ <Login />}
+            />
+        </Routes>  
       </Router>
       </>
 
