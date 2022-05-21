@@ -1,7 +1,7 @@
 import { users } from "./users";
 
 
-export const auth = (user) => {
+export const auth = (user, setIsLoading) => {
 
     const { email, password} = user;
     let response = undefined;
