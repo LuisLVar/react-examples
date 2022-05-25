@@ -1,12 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import BotonAzul from './Components/BotonAzul/BotonAzul';
+import { BotonRojo } from './Components/BotonRojo/BotonRojo';
+import { BotonVerde } from './Components/BotonVerde/BotonVerde';
 import Main from './Components/Main/Main';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Main />
+    <Main rojo={<BotonRojo />} azul={<BotonAzul />} >
+      <BotonVerde />
+      <BotonRojo />
+    </Main>
   </React.StrictMode>
 );
 
