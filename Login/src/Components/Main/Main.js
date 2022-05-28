@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react'
+import React, { createContext, useEffect, useRef, useState } from 'react'
 import Login from '../Login/Login';
 import Registro from '../Registro/Registro';
 import Navigation from '../Navigation/Navigation';
@@ -16,12 +16,28 @@ export const ToggleContext = createContext();
 
 export const Main = () => {
     const [isLoading, setIsLoading] = useState(true)
+    const count = useRef(0)
+    const [state, setState] = useState(false)
 
     const [contextValue, setContextValue] = useState(false)
 
     useEffect(() => {
-      setIsLoading(false)
-    }, [])
+        setIsLoading(false)
+        console.log('se renderiza: ' + count.current, state)
+        count.current = count.current + 1;
+    }, [state])
+
+    const inputElement = useRef();
+
+    const focusInput = () => {
+        inputElement.current.focus();
+        // document.getElementById('input').focus();
+    };
+
+    const ejecutar = () => {
+        setState(!state)
+        focusInput()
+    }
 
     return (
         // <>
@@ -44,9 +60,20 @@ export const Main = () => {
                 <Theme />
                 <hr />
                 <Theme2 />
+                <hr />
+                <div>
+                    {count.current}
+                </div>
+                <input id='input' type="text" ref={inputElement} />
+                <button
+                    onClick={() => ejecutar()}
+                    style={{backgroundColor: state ? 'skyblue' : '#ccc'}}
+                >
+                    Click
+                </button>
             </ToggleContext.Provider>
         </ThemeContext.Provider>
-        
+
 
     )
 }
