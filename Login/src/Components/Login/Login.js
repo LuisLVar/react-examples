@@ -1,4 +1,4 @@
-import * as React from 'react';
+import react, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,6 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { auth } from '../../shared/auth';
+import CircularProgress from '@mui/material/CircularProgress';
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 
 function Copyright(props) {
@@ -32,9 +35,14 @@ const theme = createTheme();
 
 const Login = () => {
 
+  const [isLoading, setIsLoading] = useState(false)
+
 
 
   const handleSubmit = (event) => {
+
+    const MySwal = withReactContent(Swal)
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     let user = {
@@ -42,13 +50,22 @@ const Login = () => {
       password: data.get('password'),
     }
     console.log(user);
-    const autorizacion =  auth(user);
+    const autorizacion = auth(user, setIsLoading);
 
     console.log(autorizacion)
 
     if(autorizacion){
-      alert('Bienvenido '+ autorizacion.name);
+      MySwal.fire({
+        title:           <>
+        {'Bienvenido '+ autorizacion.name}
+        </>
+      }).then(() => {
+        return
+      })
+      
     }
+
+    setIsLoading(false)
     
 
   };
@@ -102,7 +119,12 @@ const Login = () => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+             {isLoading ? 
+              <CircularProgress sx={{  padding: '8px' }} color="inherit" />       
+             :
+              'Sign In'
+             } 
+              
             </Button>
             <Grid container>
               <Grid item xs>

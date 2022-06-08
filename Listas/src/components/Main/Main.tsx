@@ -9,7 +9,7 @@ const Main = () => {
 
     return (
         <div className='container'>
-            <Carros carros = {carros}/>
+            <Carros carros = {carros} setCarros={setCarros}/>
         </div>
     )
 }
