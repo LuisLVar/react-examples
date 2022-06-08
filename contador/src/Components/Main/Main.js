@@ -4,6 +4,8 @@ import { Cartel } from '../Cartel/Cartel';
 import { Contador } from '../Contador/Contador';
 import ContadorClase from '../ContadorClase/ContadorClase';
 import ContadorFuncion from '../ContadorFuncion/ContadorFuncion';
+import { ContadorReducer } from '../ContadorReducer/ContadorReducer';
+import { Todos } from '../TodosReducer/Todos';
 import './Main.css'
 
 const Main = ({rojo, azul, children}) => {
@@ -17,8 +19,6 @@ const Main = ({rojo, azul, children}) => {
         cambiarColor(contador, setColor)
         // Monitorear el contador.
     }, [contador])
-
-    console.log(children)
     
     return (
         <div className='container'>
@@ -28,8 +28,7 @@ const Main = ({rojo, azul, children}) => {
             <ContadorClase />
             <hr /><hr />
             <ContadorFuncion /> */}
-
-            <div>
+            {/* <div>
                 Div rojo:
                 {rojo}
             </div>
@@ -40,7 +39,10 @@ const Main = ({rojo, azul, children}) => {
             <>
                 Children ( Div verde ) :
                 {children[0]}
-            </>
+            </> */}
+
+            {/* <ContadorReducer /> */}
+            <Todos />
         </div>
     )
 }
