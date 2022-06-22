@@ -7,6 +7,7 @@ import ContadorFuncion from '../ContadorFuncion/ContadorFuncion';
 import { ContadorReducer } from '../ContadorReducer/ContadorReducer';
 import { Todos } from '../TodosReducer/Todos';
 import './Main.css'
+import { usersList } from './usersList';
 
 const Main = ({rojo, azul, children}) => {
     

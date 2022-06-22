@@ -21,11 +21,22 @@ export const Main = () => {
 
     const [contextValue, setContextValue] = useState(false)
 
+    let initialUsers = JSON.parse(localStorage.getItem('state'));
+    if(initialUsers === undefined){
+        initialUsers = [];
+    }
+    const [users, setUsers] = useState(initialUsers);
+
+    // useEffect(() => {
+    //     setIsLoading(false)
+    //     console.log('se renderiza: ' + count.current, state)
+    //     count.current = count.current + 1;
+    // }, [state])
+
     useEffect(() => {
-        setIsLoading(false)
-        console.log('se renderiza: ' + count.current, state)
-        count.current = count.current + 1;
-    }, [state])
+        localStorage.setItem('state', JSON.stringify(users))
+    }, [users])
+    
 
     const inputElement = useRef();
 
@@ -40,39 +51,40 @@ export const Main = () => {
     }
 
     return (
-        // <>
-        //     {isLoading ? 
-        //       <CircularProgress value={75} sx={{  padding: '8px' }} color="inherit" />       
-        //      :
-        //      <>
-        //      <Navigation />
-        //      <Routes>
-        //          <Route path="/login" element={<Login />} />
-        //          <Route path="/registro" element={<Registro />} />
-        //          <Route path="/" element={<Navigate to="/login" replace />} />
-        //          <Route path="*" element={<Navigate to="/login" replace />} />
-        //      </Routes>
-        //      </>
-        //      } 
-        // </>
-        <ThemeContext.Provider value={contextValue}>
-            <ToggleContext.Provider value={setContextValue}>
-                <Theme />
-                <hr />
-                <Theme2 />
-                <hr />
-                <div>
-                    {count.current}
-                </div>
-                <input id='input' type="text" ref={inputElement} />
-                <button
-                    onClick={() => ejecutar()}
-                    style={{backgroundColor: state ? 'skyblue' : '#ccc'}}
-                >
-                    Click
-                </button>
-            </ToggleContext.Provider>
-        </ThemeContext.Provider>
+        <>
+            {isLoading ? 
+              <CircularProgress value={75} sx={{  padding: '8px' }} color="inherit" />       
+             :
+             <>
+             <Navigation />
+             <Routes>
+                 <Route path="/login" element={<Login users={users} />} />
+                 <Route path="/registro" element={<Registro users={users} setUsers={setUsers}/>} />
+                 <Route path="/todo" element={<Todos users={users} setUsers={setUsers}/>} />
+                 <Route path="/" element={<Navigate to="/login" replace />} />
+                 <Route path="*" element={<Navigate to="/login" replace />} />
+             </Routes>
+             </>
+             } 
+        </>
+        // <ThemeContext.Provider value={contextValue}>
+        //     <ToggleContext.Provider value={setContextValue}>
+        //         <Theme />
+        //         <hr />
+        //         <Theme2 />
+        //         <hr />
+        //         <div>
+        //             {count.current}
+        //         </div>
+        //         <input id='input' type="text" ref={inputElement} />
+        //         <button
+        //             onClick={() => ejecutar()}
+        //             style={{backgroundColor: state ? 'skyblue' : '#ccc'}}
+        //         >
+        //             Click
+        //         </button>
+        //     </ToggleContext.Provider>
+        // </ThemeContext.Provider>
 
 
     )

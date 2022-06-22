@@ -28,14 +28,22 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-const Registro = () => {
+const Registro = ({ users, setUsers }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+
+    newUser = {
+      nombre: data.get('nombre'),
       email: data.get('email'),
       password: data.get('password'),
-    });
+      todo: []
+    }
+
+    setUsers(
+      [...users, newUser]
+    )
+
   };
 
   return (
